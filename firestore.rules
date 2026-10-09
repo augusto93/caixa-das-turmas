@@ -1,0 +1,20 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // E-mails (contas Google) que podem ver e lançar dados no app.
+    // Para liberar alguém da comissão, adicione o e-mail na lista e clique em "Publicar".
+    function permitido() {
+      return request.auth != null
+        && request.auth.token.email_verified == true
+        && request.auth.token.email.lower() in [
+          'marceloaugusto9365@gmail.com'
+        ];
+    }
+
+    match /{colecao}/{id} {
+      allow read, write: if permitido()
+        && colecao in ['turmas', 'topicos', 'alunos', 'pagamentos', 'despesas'];
+    }
+  }
+}
