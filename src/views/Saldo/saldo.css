@@ -1,0 +1,8 @@
+.saldo{background:var(--accent);color:var(--accent-ink);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:14px}
+.saldo .big{font-family:var(--f-display);font-size:2.4rem;font-weight:700;line-height:1}
+.saldo .split{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.saldo .split div{background:rgba(255,255,255,.14);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column}
+.saldo .lbl{font-size:.78rem;opacity:.85;text-transform:uppercase;letter-spacing:.06em}
+.saldo .v{font-weight:700;font-size:1.1rem}
+
+.cat{display:grid;grid-template-columns:110px 1fr auto;gap:10px;align-items:center;font-size:.9rem}

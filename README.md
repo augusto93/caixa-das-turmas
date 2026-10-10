@@ -13,10 +13,33 @@ Ele funciona no navegador e no iPhone, e continua funcionando offline: o que for
 
 | Arquivo | Para que serve |
 |---|---|
-| `index.html` | O app inteiro |
+| `index.html` | Página principal: carrega os estilos e o `src/index.js` |
+| `src/` | O app, separado em componentes (veja abaixo) |
 | `firebase-config.js` | Configuração do seu projeto Firebase (**você preenche**) |
 | `firestore.rules` | Regras de segurança: quais e-mails podem acessar (**você preenche**) |
 | `manifest.webmanifest`, `icon-*.png` | Ícone e nome ao adicionar à tela de início do iPhone |
+
+### Organização do `src/`
+
+Não há build: o navegador carrega os arquivos direto, como módulos JavaScript (`import`/`export`).
+
+```
+src/
+  index.js              Ponto de entrada: monta o app e inicia o Firebase
+  core/                 Estado global (store.js) e desenho da tela (render.js)
+  services/             Firebase, login, leitura/gravação, backup e cálculos
+  components/
+    ui/                 Peças reutilizáveis: ProgressBar, Pill, EmptyState, PageHead…
+    AppShell/ Header/ TabBar/ Sheet/ Toast/
+  views/                Telas: Auth, Turmas, Saldo, Estimativas
+  sheets/               Formulários e ficha do aluno (abrem no painel inferior)
+  events/               Ações de clique (actions.js) e envio de formulários (forms.js)
+  styles/               Cores, base e estilos compartilhados
+```
+
+Cada componente é uma função que recebe dados e devolve HTML. Um botão com `data-act="nova-turma"`
+chama `actions['nova-turma']` em `src/events/actions.js`, e um `<form data-form="turma">` é tratado
+por `forms.turma` em `src/events/forms.js`. Ao criar um arquivo `.css` novo, inclua o `<link>` no `index.html`.
 
 ---
 

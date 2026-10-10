@@ -1,0 +1,20 @@
+.overlay{position:fixed;inset:0;z-index:20;background:rgba(10,15,30,.45);display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--bg);width:100%;max-width:560px;max-height:92vh;overflow:auto;border-radius:20px 20px 0 0;padding:18px 16px calc(22px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:14px;box-shadow:var(--shadow)}
+@media (min-width:700px){.overlay{align-items:center}.sheet{border-radius:20px;padding-bottom:22px}}
+.sheet-h{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.close{background:var(--surface-2);border:0;border-radius:50%;width:32px;height:32px;cursor:pointer;flex:none;font-size:1rem}
+
+/* Formulários das sheets */
+form{display:flex;flex-direction:column;gap:12px}
+label.f{display:flex;flex-direction:column;gap:5px;font-weight:600;font-size:.88rem}
+label.f input,label.f select,label.f textarea{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:11px 12px;font-weight:400;font-size:16px;width:100%}
+label.f textarea{min-height:110px;resize:vertical}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.checks{display:flex;flex-direction:column;gap:6px}
+.check{display:flex;gap:10px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-weight:500}
+.check input{width:18px;height:18px;accent-color:var(--accent)}
+.quick{display:flex;gap:6px;flex-wrap:wrap}
+.quick button{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:5px 12px;font-size:.84rem;cursor:pointer}
+.actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:space-between}
+
+@media (prefers-reduced-motion:no-preference){.sheet{animation:up .22s ease-out}@keyframes up{from{transform:translateY(24px);opacity:.6}to{transform:none;opacity:1}}}

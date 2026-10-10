@@ -1,0 +1,20 @@
+/* Design tokens: cores, fontes e raio. Tema escuro automático (prefers-color-scheme) ou forçado via data-theme. */
+:root{
+  --bg:#f2f4f9; --surface:#ffffff; --surface-2:#e8ecf5; --line:#d6dceb;
+  --ink:#152039; --muted:#5b6682; --accent:#2446c7; --accent-ink:#ffffff; --accent-soft:#e1e7fc;
+  --ok:#157647; --ok-soft:#d9f1e3; --warn:#9a5800; --warn-soft:#faebd0; --bad:#b3242d; --bad-soft:#fbe0e1;
+  --shadow:0 10px 30px rgba(21,32,57,.14);
+  --f-display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --f-body:"Figtree",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0d1322; --surface:#151d31; --surface-2:#1d2740; --line:#2a3552;
+  --ink:#e6ebf7; --muted:#99a4c1; --accent:#8aa2ff; --accent-ink:#0b1022; --accent-soft:#222e56;
+  --ok:#55cf8f; --ok-soft:#163828; --warn:#f0b24f; --warn-soft:#3a2c13; --bad:#ff7d86; --bad-soft:#40191d;
+  --shadow:0 10px 30px rgba(0,0,0,.45); color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0d1322; --surface:#151d31; --surface-2:#1d2740; --line:#2a3552;
+  --ink:#e6ebf7; --muted:#99a4c1; --accent:#8aa2ff; --accent-ink:#0b1022; --accent-soft:#222e56;
+  --ok:#55cf8f; --ok-soft:#163828; --warn:#f0b24f; --warn-soft:#3a2c13; --bad:#ff7d86; --bad-soft:#40191d;
+  --shadow:0 10px 30px rgba(0,0,0,.45); color-scheme:dark }

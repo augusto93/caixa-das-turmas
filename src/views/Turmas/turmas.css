@@ -1,0 +1,4 @@
+.topics{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px}
+.topic{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:8px}
+.topic:hover{border-color:var(--accent)}
+.topic b{font-family:var(--f-display);font-size:1.05rem}
