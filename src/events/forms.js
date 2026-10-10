@@ -12,12 +12,14 @@ export const forms = {
   turma(fd, s) {
     const nome = String(fd.get('nome')).trim();
     if (!nome) return;
+    const dRaw = String(fd.get('desconto') || '').trim(), desconto = dRaw ? parseBRL(dRaw) : 0;
+    if (!(desconto >= 0)) { toast('Desconto inválido. Use um valor como 10,00.'); return; }
     if (s.id) {
       const t = turma(s.id);
-      return run(() => put('turmas', t.id, { ...t, nome }).then(closeSheet), 'Turma salva');
+      return run(() => put('turmas', t.id, { ...t, nome, desconto }).then(closeSheet), 'Turma salva');
     }
     const id = uid();
-    return run(() => put('turmas', id, { nome, criadoEm: Date.now() }).then(() => {
+    return run(() => put('turmas', id, { nome, desconto, criadoEm: Date.now() }).then(() => {
       closeSheet();
       ui.turma = id;
       ui.tab = 'turmas';

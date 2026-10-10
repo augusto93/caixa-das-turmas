@@ -12,10 +12,10 @@ export function PagamentoSheet(s) {
   if (!a) return null;
   const tops = (a.topicos || []).map(topico).filter(Boolean);
   const cur = s.topico || tops[0]?.id;
-  const fal = cur ? faltaNoTopico(a.id, topico(cur)) : 0;
+  const fal = cur ? faltaNoTopico(a, topico(cur)) : 0;
 
   return SheetHead('Registrar pagamento', esc(a.nome)) + `<form data-form="pagar">
-      <label class="f">Tópico<select id="i-ptop" name="topico">${tops.map(t => `<option value="${t.id}" ${t.id === cur ? 'selected' : ''}>${esc(t.nome)} — falta ${brl(faltaNoTopico(a.id, t))}</option>`).join('')}</select></label>
+      <label class="f">Tópico<select id="i-ptop" name="topico">${tops.map(t => `<option value="${t.id}" ${t.id === cur ? 'selected' : ''}>${esc(t.nome)} — falta ${brl(faltaNoTopico(a, t))}</option>`).join('')}</select></label>
       <div class="two"><label class="f">Valor<input id="i-pval" name="valor" required inputmode="decimal" placeholder="${placeholderValor(fal)}" autofocus></label>
       <label class="f">Data<input id="i-pdata" name="data" type="date" value="${hoje()}" required></label></div>
       <label class="f">Forma de pagamento<select id="i-pforma" name="forma">${FORMAS.map(x => `<option>${x}</option>`).join('')}</select></label>

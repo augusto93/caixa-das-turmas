@@ -26,7 +26,7 @@ export function TopicoEstimativa(t) {
   const s = statsTop(t), tu = turma(t.turmaId);
   const pendN = s.pend.length;
   const open = !!ui.open[t.id];
-  return `<div class="card est"><div class="est-h"><div><h3>${esc(t.nome)}</h3><div class="small muted">${esc(tu ? tu.nome : '')} · teto ${brl(t.teto)} por aluno${t.prazo ? ' · limite ' + fdata(t.prazo) : ''}</div></div>${PrazoPill(t.prazo)}</div>
+  return `<div class="card est"><div class="est-h"><div><h3>${esc(t.nome)}</h3><div class="small muted">${esc(tu ? tu.nome : '')} · teto ${brl(t.teto)} por aluno${t.prazo ? ' · limite ' + fdata(t.prazo) : ''}${s.comDesc > 0 ? ` · ${s.comDesc} com desconto` : ''}</div></div>${PrazoPill(t.prazo)}</div>
     ${ProgressBar(pct(s.meta - s.falta, s.meta), s.n && !pendN)}
     <div class="trio num"><div><span class="eyebrow">Meta</span><span class="v">${brl(s.meta)}</span></div><div><span class="eyebrow">Arrecadado</span><span class="v pos">${brl(s.arrec)}</span></div><div><span class="eyebrow">Falta</span><span class="v">${brl(s.falta)}</span></div></div>
     <div class="pills">${Pill(`${s.quit} quitado${s.quit === 1 ? '' : 's'}`, 'ok')}${Pill(`${pendN - s.zero} pagando`, 'warn')}${Pill(`${s.zero} sem pagamento`)}</div>

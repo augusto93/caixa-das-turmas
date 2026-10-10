@@ -36,7 +36,7 @@ const CHANGES = {
   'i-dturma': v => { const s = $('#i-dtop'); s.innerHTML = topicoOptions(v); s.disabled = !v; },
   'i-ptop': v => {
     const a = aluno(ui.sheet.aluno);
-    $('#i-pval').placeholder = placeholderValor(faltaNoTopico(a.id, topico(v)));
+    $('#i-pval').placeholder = placeholderValor(faltaNoTopico(a, topico(v)));
     ui.sheet.topico = v;
   },
 };

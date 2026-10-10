@@ -20,17 +20,35 @@ export function pago(alunoId, topId) {
   return Math.round(s * 100) / 100;
 }
 
+export const alunoTops = a => (a.topicos || []).map(topico).filter(Boolean);
+
+/* Parte do desconto da turma que cabe ao aluno no tópico: o desconto é dividido igualmente entre
+   os tópicos dele (só com 2 ou mais). Centavos que sobram vão para os tópicos de prazo mais longo. */
+export function descontoAluno(a, topId) {
+  const d = Number(turma(a.turmaId)?.desconto) || 0;
+  const ts = alunoTops(a).sort((x, y) => (x.prazo || '9').localeCompare(y.prazo || '9') || byNome(x, y) || x.id.localeCompare(y.id));
+  const n = ts.length, i = ts.findIndex(t => t.id === topId);
+  if (d <= 0 || n < 2 || i < 0) return 0;
+  const cents = Math.round(d * 100), base = Math.floor(cents / n), resto = cents - base * n;
+  return (base + (i >= n - resto ? 1 : 0)) / 100;
+}
+
+/* Quanto o aluno deve no tópico: teto menos a parte do desconto dele. */
+export const devido = (a, t) => Math.max(0, (Number(t.teto) || 0) - descontoAluno(a, t.id));
+
 /* Quanto o aluno ainda deve no tópico. */
-export const faltaNoTopico = (alunoId, t) => Math.max(0, (Number(t?.teto) || 0) - pago(alunoId, t?.id));
+export const faltaNoTopico = (a, t) => (t ? Math.max(0, devido(a, t) - pago(a.id, t.id)) : 0);
 
 export function statsTop(t) {
   const al = S.alunos.filter(a => a.turmaId === t.turmaId && (a.topicos || []).includes(t.id));
   const teto = Number(t.teto) || 0;
-  let arrec = 0, falta = 0, quit = 0, zero = 0;
+  let meta = 0, arrec = 0, falta = 0, quit = 0, zero = 0, comDesc = 0;
   const pend = [];
   for (const a of al) {
-    const p = pago(a.id, t.id);
-    const f = Math.max(0, teto - p);
+    const p = pago(a.id, t.id), dv = devido(a, t);
+    const f = Math.max(0, dv - p);
+    meta += dv;
+    if (dv < teto) comDesc++;
     falta += f;
     if (f <= EPS) quit++;
     else pend.push({ a, p, f });
@@ -39,7 +57,7 @@ export function statsTop(t) {
   // Arrecadado conta todos os pagamentos do tópico, inclusive de alunos que saíram dele.
   for (const p of S.pagamentos) if (p.topicoId === t.id) arrec += Number(p.valor) || 0;
   pend.sort((x, y) => y.f - x.f);
-  return { n: al.length, teto, meta: al.length * teto, arrec, falta, quit, zero, pend };
+  return { n: al.length, teto, meta, arrec, falta, quit, zero, pend, comDesc };
 }
 
 export function statsTurma(tid) {
@@ -58,6 +76,6 @@ export function alunoQuitado(a) {
   if (!ts.length) return false;
   return ts.every(id => {
     const t = topico(id);
-    return !t || pago(a.id, id) >= (Number(t.teto) || 0) - EPS;
+    return !t || pago(a.id, id) >= devido(a, t) - EPS;
   });
 }

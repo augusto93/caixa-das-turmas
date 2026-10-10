@@ -1,5 +1,5 @@
 import { ui } from '../../core/store.js';
-import { alunosDe, topico, pago, EPS } from '../../services/calc.js';
+import { alunosDe, topico, pago, devido, EPS } from '../../services/calc.js';
 import { esc, brl } from '../../utils/format.js';
 import { Pill } from '../../components/ui/index.js';
 
@@ -8,7 +8,7 @@ function AlunoRow(a) {
   const pills = (a.topicos || []).map(id => {
     const tp = topico(id);
     if (!tp) return '';
-    const p = pago(a.id, id), teto = Number(tp.teto) || 0, f = Math.max(0, teto - p);
+    const p = pago(a.id, id), teto = devido(a, tp), f = Math.max(0, teto - p);
     falta += f;
     const variant = f <= EPS ? 'ok num' : p > 0 ? 'warn num' : 'num';
     return Pill(`${esc(tp.nome)} ${f <= EPS ? '✓ quitado' : brl(p) + ' / ' + brl(teto)}`, variant);

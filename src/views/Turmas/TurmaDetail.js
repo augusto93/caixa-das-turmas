@@ -12,6 +12,7 @@ export function TurmaDetail(t) {
 
   let h = `<button class="back" data-act="voltar">‹ Todas as turmas</button>
   ${PageHead({ eyebrow: 'Turma', title: esc(t.nome), actions: ro ? '' : '<button class="btn sm" data-act="editar-turma">Editar turma</button>' })}
+  ${Number(t.desconto) > 0 ? `<div class="hint small">Desconto de <b>${brl(t.desconto)}</b> para quem participa de mais de um tópico, dividido igualmente entre os tópicos do aluno.</div>` : ''}
   <div class="card">${ProgressBar(pct(s.arrec, s.meta), s.meta && s.falta <= 0)}<div class="small num" style="margin-top:8px"><b>${brl(s.arrec)}</b> arrecadado de ${brl(s.meta)} · falta ${brl(s.falta)}</div></div>
   <section class="sec">${SectionHead('Tópicos', ro ? '' : '<button class="btn sm" data-act="novo-topico">+ Tópico</button>')}`;
 
