@@ -21,7 +21,7 @@ export const actions = {
   sair: () => sair(),
   backup: () => backup(),
   importar: () => escolherArquivo(),
-  'apagar-tudo': el => { if (arm(el, 'Toque de novo: apaga turmas, alunos e pagamentos')) apagarTudo(); },
+  'apagar-tudo': el => { if (arm(el, 'Toque de novo: apaga os dados de todos')) apagarTudo(); },
 
   /* Sheets */
   close: () => closeSheet(),

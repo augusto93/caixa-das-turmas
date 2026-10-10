@@ -21,12 +21,12 @@ export function falhaEscrita(e) {
   else toast('Não foi possível salvar. Verifique a conexão.');
 }
 
-/* Cada usuário tem um espaço privado: usuarios/{uid}/{colecao}/{id} */
-const ref = (col, id) => doc(fb.fs, 'usuarios', app.me.uid, col, id);
-const refCol = col => collection(fb.fs, 'usuarios', app.me.uid, col);
+/* Caixa compartilhado: todos os e-mails liberados em firestore.rules veem os mesmos dados em {colecao}/{id}. */
+const ref = (col, id) => doc(fb.fs, col, id);
+const refCol = col => collection(fb.fs, col);
 
 export async function put(col, id, data) {
-  const body = { ...clean(data), atualizadoEm: Date.now() };
+  const body = { ...clean(data), atualizadoEm: Date.now(), por: app.me?.email || '' };
   setDoc(ref(col, id), body).catch(falhaEscrita);
 }
 
@@ -49,7 +49,7 @@ export async function apagarTudo() {
   try {
     await emLote(ops);
     ui.turma = null;
-    toast('Todos os seus dados foram apagados.');
+    toast('Todos os dados foram apagados.');
   } catch (e) {
     falhaEscrita(e);
   }

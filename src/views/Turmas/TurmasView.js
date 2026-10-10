@@ -6,7 +6,7 @@ import { TurmaRow } from './TurmaRow.js';
 import { TurmaDetail } from './TurmaDetail.js';
 
 const Footer = () =>
-  `<div class="foot" style="flex-direction:column;align-items:center;gap:4px"><span class="small muted">Conectado como ${esc(app.me?.email || '')}</span><button class="linkbtn" data-act="backup">Baixar backup dos dados (JSON)</button><button class="linkbtn" data-act="importar">Importar backup</button><button class="x" data-act="apagar-tudo">Apagar todos os meus dados</button></div>`;
+  `<div class="foot" style="flex-direction:column;align-items:center;gap:4px"><span class="small muted">Conectado como ${esc(app.me?.email || '')}</span><button class="linkbtn" data-act="backup">Baixar backup dos dados (JSON)</button><button class="linkbtn" data-act="importar">Importar backup</button><button class="x" data-act="apagar-tudo">Apagar todos os dados</button></div>`;
 
 /* Aba Turmas: lista de turmas ou, se houver uma aberta, o detalhe dela. */
 export function TurmasView() {
